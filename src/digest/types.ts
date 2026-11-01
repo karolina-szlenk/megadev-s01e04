@@ -18,6 +18,7 @@ export type DigestRow = {
   owner: string | null; // from the job's last line; null = unknown
   runs: number; // lines for this job, any status
   retries: number; // lines with status `retry`
+  fails: number; // lines with status `fail`; the page marks any row with one
   lastStatus: RunStatus; // status of the job's last line
   lastError: string | null; // last `error` seen for the job; null when none
   firstAt: string; // `at` of the first line, log's offset kept
