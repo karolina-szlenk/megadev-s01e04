@@ -4,9 +4,9 @@ type Found = Extract<NightResult, { found: true }>;
 
 const dash = '—';
 
-// DigestRow has no fails count (types.ts), so a `fail` is read from the last status.
+// Plan § 2a: retries of 3 or more and any `fail` are marked.
 function isMarked(row: DigestRow): boolean {
-  return row.retries >= 3 || row.lastStatus === 'fail';
+  return row.retries >= 3 || row.fails > 0;
 }
 
 export function DigestPage({ night, result }: { night: string; result: Found }) {
@@ -28,6 +28,7 @@ export function DigestPage({ night, result }: { night: string; result: Found }) 
               <th>owner</th>
               <th>runs</th>
               <th>retries</th>
+              <th>fails</th>
               <th>last status</th>
               <th>last error</th>
               <th>first</th>
@@ -41,6 +42,7 @@ export function DigestPage({ night, result }: { night: string; result: Found }) 
                 <td>{row.owner ?? dash}</td>
                 <td>{row.runs}</td>
                 <td>{row.retries}</td>
+                <td>{row.fails}</td>
                 <td>{row.lastStatus}</td>
                 <td>{row.lastError ?? dash}</td>
                 <td>{row.firstAt}</td>
